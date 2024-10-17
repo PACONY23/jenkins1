@@ -5,7 +5,7 @@ pipeline {
             steps {
                 script {
                     // Lee el contenido del archivo HTML externo y lo guarda en 'report.html'
-                    def htmlContent = readFile 'index.html'
+                    def htmlContent = readFile 'pr1/index.html'
                     writeFile file: 'report.html', text: htmlContent
                 }
             }
