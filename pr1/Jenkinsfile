@@ -1,0 +1,28 @@
+pipeline {
+    agent any
+    stages {
+        stage('Copy HTML Template') {
+            steps {
+                script {
+                    // Lee el contenido del archivo HTML externo y lo guarda en 'report.html'
+                    def htmlContent = readFile 'report_template.html'
+                    writeFile file: 'report.html', text: htmlContent
+                }
+            }
+        }
+        stage('Open HTML Report') {
+            steps {
+                script {
+                    // Abre el archivo HTML en el navegador predeterminado
+                    bat 'start chrome "report.html"'
+                }
+            }
+        }
+        stage('Archive HTML Report') {
+            steps {
+                // Archiva el archivo HTML para acceder a él desde Jenkins
+                archiveArtifacts artifacts: 'report.html', allowEmptyArchive: true
+            }
+        }
+    }
+}
